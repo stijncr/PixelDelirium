@@ -11,3 +11,17 @@
 *.lai
 *.la
 *.a
+
+# Visual Studio project files
+[Ii]pch
+[Dd]ebug
+[Rr]elease
+*.sln
+*.sdf
+*.suo
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.user
+*.filters
+*.opensdf
