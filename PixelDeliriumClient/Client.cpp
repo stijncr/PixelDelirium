@@ -13,7 +13,7 @@ int Thread(){
 	}
 	return 0;
 }
-int main(){
+int main(int argc, char* args[]){
 	if(!winSockDll.Init()){
 		std::cout << "Couldn't init winsock" << std::endl;
 		system("pause");

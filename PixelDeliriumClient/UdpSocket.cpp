@@ -1,15 +1,6 @@
 #include "UdpSocket.h"
 
-void Error::LogError(std::string str){
-	std::ofstream out("log.txt",std::ios::out|std::ios::app|std::ios::binary);//Log it and make a newline	
-	out<<str;	
-	if (str.length()>0)	{
-		out<<"\n\r";
-		out<<std::endl;
-	}
-	out.flush();
-	out.close();
-}
+
 
 bool WinSockDll::Init(){
 	#if PLATFORM == PLATFORM_WINDOWS
@@ -18,19 +9,19 @@ bool WinSockDll::Init(){
 		Error error;
 		switch(res){
 		case WSASYSNOTREADY:
-			error.LogError("The underlying network subsystem is not ready for network communication.");
+			error.HandleError(Log, "The underlying network subsystem is not ready for network communication.");
 			break;
 		case WSAVERNOTSUPPORTED:
-			error.LogError("The version of Windows Sockets support requested is not provided by this particular Windows Sockets implementation.");
+			error.HandleError(Log, "The version of Windows Sockets support requested is not provided by this particular Windows Sockets implementation.");
 			break;
 		case WSAEINPROGRESS:
-			error.LogError("A blocking Windows Sockets 1.1 operation is in progress");
+			error.HandleError(Log, "A blocking Windows Sockets 1.1 operation is in progress");
 			break;
 		case WSAEPROCLIM:
-			error.LogError("A limit on the number of tasks supported by the Windows Sockets implementation has been reached.");
+			error.HandleError(Log, "A limit on the number of tasks supported by the Windows Sockets implementation has been reached.");
 			break;
 		case WSAEFAULT:
-			error.LogError("The lpWSAData parameter is not a valid pointer.");
+			error.HandleError(Log, "The lpWSAData parameter is not a valid pointer.");
 			break;
 		}
 		return false;
@@ -45,13 +36,13 @@ bool WinSockDll::Cleanup(){
 		Error error;
 		switch(res){
 		case WSANOTINITIALISED:
-			error.LogError("A successful WSAStartup call must occur before using this function.");
+			error.HandleError(Log, "A successful WSAStartup call must occur before using this function.");
 			break;
 		case WSAENETDOWN:
-			error.LogError("The network subsystem has failed.");
+			error.HandleError(Log, "The network subsystem has failed.");
 			break;
 		case WSAEINPROGRESS:
-			error.LogError("A blocking Winsock call is in progress, or the service provider is still processing a callback function.");
+			error.HandleError(Log, "A blocking Winsock call is in progress, or the service provider is still processing a callback function.");
 			break;
 		}
 		return false;

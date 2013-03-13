@@ -21,13 +21,10 @@
 
 #endif
 #include <string>
-#include <fstream>
+#include "Framework.h"
 #pragma comment (lib, "ws2_32.lib")
 
-class Error{
-public:
-	void LogError(std::string str);
-};
+
 class WinSockDll {
 private:
 	WSADATA _wsaData;
